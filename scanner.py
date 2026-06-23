@@ -1,6 +1,8 @@
 
 #Basically threading.
 from concurrent.futures import ThreadPoolExecutor
+#Gathering the def function from the utils file so the main code doesnt get too messy
+from utils import get_service
 #Library for working with sockets. Using it for making TCP connection
 import socket
 #Library for working with time. Using it to calc how much it takes for the app to run.
@@ -34,7 +36,8 @@ def scan_ip_address(ip_address,port_chunk):
             scan_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             scan_socket.settimeout(2)
             scan_socket.connect((ip_address, port))
-            print(f"[!] Port {port} is open")
+            service = get_service(port)
+            print(f"[!][OPEN] Port {port} {service}")
             #If the port is closed and exception will be thrown, capture it here
         except:
             None
